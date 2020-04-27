@@ -1,0 +1,142 @@
+break : to stop or terminate the iterator 
+continue : skip the current iteration and continue from next 
+
+Exmaple: break 
+
+i=1  #init
+
+while [ '$i' -le 10 ] #condition 
+do
+	mod=`expr $i % 5`
+	if [ '$mod' -eq 0 ]
+	then
+		break 
+	fi
+	echo "$i"	
+
+	i=`expr $i + 1`  #increment
+done
+
+# 1 2 3 4 
+
+Exmaple: continue 
+
+i=0  #init
+
+while [ '$i' -le 10 ] #condition 
+do
+	i=`expr $i + 1`  #increment
+
+	mod=`expr $i % 3`
+	if [ '$mod' -eq 0 ]
+	then
+		continue 
+	fi
+	echo "$i"	
+done
+
+# 1 2  4 5  7 8 10
+
+##############until  : while and until usecase are same 
+
+a=1
+
+until [ $a -lt 10 ]
+do
+   echo $a
+   a=`expr $a + 1` #increment 
+
+done
+
+
+##################### for  : works for collection or array (set of values)
+			   : forward only 
+
+#declare array : static value (declare the data in script file)
+num="11 222 44 66 6555 777 4444 677"
+
+#dynamic value : we can pass data as a arguments 
+$*
+
+
+for x in $num   #init, condition , increment 
+do
+	echo "$x"
+	#.....
+
+	mod=`expr $x % 2`
+	if [ $mod -eq 0 ]
+	then
+		echo "even number"
+	fi
+		
+done
+
+ 
+
+hi
+this is
+############################ read data from and take some action for every line
+file="file....path/name.extn"
+
+while IFS= read -r line
+do
+	echo "$line"	
+	mkdir $line
+
+done <"$file"
+
+
+####find char/word
+file="file....path/name.extn"
+
+while IFS= read -r line
+do
+	
+	if [[ $line == *a* ]]   #contains a 
+	if [[ $line == ab* ]]   #start with ab
+	if [[ $line == *mn ]]   #ending with mn  
+	then 
+		echo "data is match"
+		#do some operation 	
+	fi
+
+
+done <"$file"
+
+
+#################### Write a script to create user from list 
+Save the file as userlist.txt. 
+=======================================
+nurealam
+nayeem
+mrahman
+farid
+rubi
+sankar
+
+
+Creater_user.sh
+=============================
+#!/bin/sh
+for i in `more userlist.txt `
+do
+	echo $i
+	adduser $i
+
+	#echo $i"123" | passwd –-stdin "$i"
+
+done
+
+
+
+
+
+
+
+
+
+
+
+
+
